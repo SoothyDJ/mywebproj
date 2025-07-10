@@ -1,0 +1,229 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 3001,
+    "cors": {
+      "origin": [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+      ],
+      "credentials": true,
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "allowedHeaders": ["Content-Type", "Authorization"]
+    },
+    "bodyParser": {
+      "limit": "10mb",
+      "extended": true
+    },
+    "timeout": 30000
+  },
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "web_automation",
+    "username": "postgres",
+    "password": "password123",
+    "dialect": "postgres",
+    "logging": true,
+    "pool": {
+      "max": 20,
+      "min": 5,
+      "acquire": 30000,
+      "idle": 10000,
+      "evict": 1000
+    },
+    "ssl": false,
+    "define": {
+      "timestamps": true,
+      "underscored": true,
+      "freezeTableName": true
+    },
+    "retry": {
+      "max": 3,
+      "timeout": 5000
+    }
+  },
+  "ai": {
+    "defaultProvider": "openai",
+    "fallbackEnabled": true,
+    "timeout": 60000,
+    "retries": 2,
+    "providers": {
+      "openai": {
+        "model": "gpt-4o-mini",
+        "maxTokens": 2000,
+        "temperature": 0.3,
+        "timeout": 30000,
+        "rateLimitPerMinute": 60
+      },
+      "claude": {
+        "model": "claude-3-5-sonnet-20241022",
+        "maxTokens": 2000,
+        "temperature": 0.3,
+        "timeout": 30000,
+        "rateLimitPerMinute": 50
+      }
+    },
+    "batchProcessing": {
+      "enabled": true,
+      "batchSize": 3,
+      "delayBetweenBatches": 1000,
+      "delayBetweenRequests": 500,
+      "maxConcurrentTasks": 5
+    }
+  },
+  "scraping": {
+    "youtube": {
+      "enabled": true,
+      "headless": true,
+      "timeout": 30000,
+      "maxRetries": 3,
+      "delayBetweenRequests": 2000,
+      "maxResults": 50,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "defaultTimeFilter": "month"
+    },
+    "reddit": {
+      "enabled": false,
+      "timeout": 20000,
+      "maxRetries": 2,
+      "delayBetweenRequests": 1500,
+      "maxResults": 25
+    },
+    "browser": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-accelerated-2d-canvas",
+        "--no-first-run",
+        "--no-zygote",
+        "--disable-gpu"
+      ],
+      "defaultViewport": {
+        "width": 1920,
+        "height": 1080
+      }
+    }
+  },
+  "storage": {
+    "uploads": {
+      "path": "./uploads",
+      "maxSize": 10485760,
+      "allowedTypes": ["json", "csv", "txt", "html"],
+      "cleanupInterval": 86400000
+    },
+    "reports": {
+      "path": "./reports",
+      "maxAge": 2592000000,
+      "formats": ["html", "json"],
+      "autoCleanup": true
+    },
+    "logs": {
+      "path": "./logs",
+      "maxSize": "10m",
+      "maxFiles": 5,
+      "level": "debug"
+    }
+  },
+  "security": {
+    "helmet": {
+      "enabled": true,
+      "contentSecurityPolicy": false,
+      "crossOriginEmbedderPolicy": false
+    },
+    "rateLimiting": {
+      "enabled": false,
+      "windowMs": 900000,
+      "maxRequests": 100,
+      "skipSuccessfulRequests": false
+    },
+    "session": {
+      "secret": "dev-session-secret-change-in-production",
+      "maxAge": 86400000,
+      "secure": false,
+      "httpOnly": true
+    }
+  },
+  "features": {
+    "authentication": false,
+    "userManagement": false,
+    "fileUploads": true,
+    "htmlReports": true,
+    "storyboardGeneration": true,
+    "batchProcessing": true,
+    "realTimeUpdates": false,
+    "emailNotifications": false,
+    "webhooks": false
+  },
+  "monitoring": {
+    "healthChecks": {
+      "enabled": true,
+      "interval": 300000,
+      "timeout": 5000,
+      "endpoints": [
+        "/health",
+        "/api/tasks/status"
+      ]
+    },
+    "metrics": {
+      "enabled": true,
+      "collectInterval": 60000,
+      "retentionPeriod": 86400000
+    },
+    "errorTracking": {
+      "enabled": true,
+      "logLevel": "error",
+      "includeStack": true
+    }
+  },
+  "performance": {
+    "caching": {
+      "enabled": false,
+      "ttl": 3600,
+      "maxSize": 100
+    },
+    "compression": {
+      "enabled": true,
+      "level": 6,
+      "threshold": 1024
+    },
+    "keepAlive": {
+      "enabled": true,
+      "timeout": 5000
+    }
+  },
+  "development": {
+    "mockAiResponses": false,
+    "skipScraping": false,
+    "seedDatabase": false,
+    "debugMode": true,
+    "verboseLogging": true,
+    "hotReload": true,
+    "devTools": {
+      "enabled": true,
+      "port": 9229
+    },
+    "testing": {
+      "mockExternalServices": false,
+      "testDataPath": "./test-data",
+      "coverageThreshold": 80
+    }
+  },
+  "integrations": {
+    "webhooks": {
+      "enabled": false,
+      "timeout": 10000,
+      "retries": 3
+    },
+    "email": {
+      "enabled": false,
+      "service": "console",
+      "from": "dev@localhost"
+    },
+    "analytics": {
+      "enabled": false,
+      "provider": "none"
+    }
+  }
+}
