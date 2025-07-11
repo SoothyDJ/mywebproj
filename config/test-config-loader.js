@@ -1,4 +1,7 @@
+// File Path: /config/test-config-loader.js
 // Test configuration loading with environment variables
+// REF-102: Fixed corrupted CDATASection code
+
 require('dotenv').config({ path: '../backend/.env' });
 
 function testConfigLoader() {
@@ -41,4 +44,4 @@ function testConfigLoader() {
     }
 }
 
-testConfigLoader();CDATASection
+testConfigLoader();
